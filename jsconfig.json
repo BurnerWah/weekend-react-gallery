@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "forceConsistentCasingInFileNames": true,
-    // Linting rules
     "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
