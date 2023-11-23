@@ -1,9 +1,15 @@
+import './GalleryItem.css'
+
 /**
  * @param {Object} props
  * @param {GalleryDBItem} props.item
  */
 function GalleryItem({ item }) {
-  return <div data-testid="galleryItem">{JSON.stringify(item)}</div>
+  return (
+    <div className="GalleryItem" data-testid="galleryItem">
+      <img src={item.url} alt={item.description} />
+    </div>
+  )
 }
 
 export default GalleryItem

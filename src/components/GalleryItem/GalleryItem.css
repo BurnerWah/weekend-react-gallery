@@ -1,0 +1,8 @@
+.GalleryItem img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}

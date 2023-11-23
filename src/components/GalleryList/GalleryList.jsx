@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import GalleryItem from '../GalleryItem/GalleryItem'
+import './GalleryList.css'
 
 function GalleryList() {
   const [galleryItems, setGalleryItems] = useState(
@@ -21,7 +22,7 @@ function GalleryList() {
   }, [galleryItems])
 
   return (
-    <div data-testid="galleryList">
+    <div className="GalleryList" data-testid="galleryList">
       {galleryItems.map((item) => (
         <GalleryItem key={item.id} item={item} />
       ))}
