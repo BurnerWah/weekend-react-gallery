@@ -24,7 +24,11 @@ function GalleryList() {
   return (
     <div className="GalleryList" data-testid="galleryList">
       {galleryItems.map((item) => (
-        <GalleryItem key={item.id} item={item} />
+        <GalleryItem
+          key={item.id}
+          item={item}
+          getGalleryItems={getGalleryItems}
+        />
       ))}
     </div>
   )
