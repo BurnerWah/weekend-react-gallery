@@ -1,6 +1,10 @@
+.GalleryItem .Description,
 .GalleryItem img {
   width: 100px;
   height: 100px;
+}
+
+.GalleryItem img {
   object-fit: cover;
   object-position: center;
   cursor: pointer;
