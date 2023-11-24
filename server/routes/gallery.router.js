@@ -4,8 +4,22 @@ const pool = require('../modules/pool')
 const router = Router()
 
 // PUT /gallery/like/:id
-router.put('/like/:id', (req, res) => {
-  // code here
+router.put('/like/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    await pool.query(
+      /*sql*/ `
+        UPDATE "gallery"
+        SET "likes" = "likes" + 1
+        WHERE "id" = $1
+      `,
+      [id],
+    )
+    res.sendStatus(200)
+  } catch (error) {
+    console.error(error)
+    res.sendStatus(500)
+  }
 })
 
 // GET /gallery
