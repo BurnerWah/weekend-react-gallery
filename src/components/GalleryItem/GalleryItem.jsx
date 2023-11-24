@@ -19,6 +19,15 @@ function GalleryItem({ item }) {
           <img src={item.url} alt={item.description} />
         )}
       </div>
+      <button
+        onClick={async () => {
+          console.log('like button clicked')
+        }}
+        data-testid="like"
+      >
+        Love it!
+      </button>
+      <span>{item.likes} likes</span>
     </div>
   )
 }
