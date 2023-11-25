@@ -37,6 +37,20 @@ function GalleryItem({ item, getGalleryItems }) {
         Love it!
       </button>
       <span>{item.likes} likes</span>
+      <button
+        onClick={async () => {
+          console.log('delete button clicked')
+          try {
+            await axios.delete(`/gallery/${item.id}`)
+            getGalleryItems()
+            console.log('delete successful')
+          } catch (error) {
+            console.error('error deleting', error)
+          }
+        }}
+      >
+        Delete
+      </button>
     </div>
   )
 }
