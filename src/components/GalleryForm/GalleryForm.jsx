@@ -1,3 +1,4 @@
+import { Button, FormControl, TextField } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 
@@ -10,49 +11,46 @@ function GalleryForm({ getGalleryItems }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault()
-        try {
-          await axios.post('/gallery', { url, title, description })
-          setUrl('')
-          setTitle('')
-          setDescription('')
-          getGalleryItems()
-        } catch (error) {
-          console.log(error)
-        }
-      }}
-    >
-      <label>
-        URL:{' '}
-        <input
+    <FormControl>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault()
+          try {
+            await axios.post('/gallery', { url, title, description })
+            setUrl('')
+            setTitle('')
+            setDescription('')
+            getGalleryItems()
+          } catch (error) {
+            console.log(error)
+          }
+        }}
+      >
+        <TextField
+          label="URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           type="url"
-          pattern="(https://.*|/.*)"
           required
         />
-      </label>
-      <label>
-        Title:{' '}
-        <input
+        <TextField
+          label="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           required
         />
-      </label>
-      <label>
-        Description:{' '}
-        <input
+        <TextField
+          label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           type="text"
         />
-      </label>
-      <button type="submit">Add Image</button>
-    </form>
+        <Button variant="contained" type="submit">
+          Add Image
+        </Button>
+      </form>
+    </FormControl>
   )
 }
 
