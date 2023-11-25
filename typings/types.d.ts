@@ -6,3 +6,9 @@ interface GalleryDBItem {
   description: string
   likes: number
 }
+
+interface GalleryReqBody {
+  url: string
+  title: string
+  description: string
+}

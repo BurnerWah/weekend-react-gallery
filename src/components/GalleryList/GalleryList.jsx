@@ -1,26 +1,12 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
 import GalleryItem from '../GalleryItem/GalleryItem'
 import './GalleryList.css'
 
-function GalleryList() {
-  const [galleryItems, setGalleryItems] = useState(
-    /** @type {GalleryDBItem[]} */ ([]),
-  )
-
-  const getGalleryItems = async () => {
-    try {
-      const res = await axios.get('/gallery')
-      setGalleryItems(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getGalleryItems()
-  }, [galleryItems])
-
+/**
+ * @param {Object} props
+ * @param {GalleryDBItem[]} props.galleryItems
+ * @param {() => void} props.getGalleryItems
+ */
+function GalleryList({ galleryItems, getGalleryItems }) {
   return (
     <div className="GalleryList" data-testid="galleryList">
       {galleryItems.map((item) => (

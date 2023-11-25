@@ -22,6 +22,25 @@ router.put('/like/:id', async (req, res) => {
   }
 })
 
+router.post('/', async (req, res) => {
+  /** @type {GalleryReqBody} */
+  const body = req.body
+  try {
+    const result = await pool.query({
+      text: /*sql*/ `
+        INSERT INTO "gallery" ("url", "title", "description")
+        VALUES ($1, $2, $3)
+      `,
+      values: [body.url, body.title, body.description],
+    })
+    console.log(result)
+    res.sendStatus(201)
+  } catch (error) {
+    console.error(error)
+    res.sendStatus(500)
+  }
+})
+
 // GET /gallery
 router.get('/', async (_req, res) => {
   try {
