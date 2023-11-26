@@ -1,3 +1,13 @@
+import DeleteIcon from '@mui/icons-material/Delete'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import './GalleryItem.css'
@@ -10,48 +20,63 @@ import './GalleryItem.css'
 function GalleryItem({ item, getGalleryItems }) {
   const [showDescription, setShowDescription] = useState(false)
   return (
-    <div className="GalleryItem" data-testid="galleryItem">
-      <span>{item.title}</span>
-      <div data-testid="toggle" onClick={() => setShowDescription((x) => !x)}>
-        {showDescription ? (
-          <p className="Description" data-testid="description">
-            {item.description}
-          </p>
-        ) : (
-          <img src={item.url} alt={item.description} />
-        )}
+    <Card>
+      <div className="GalleryItem" data-testid="galleryItem">
+        <CardContent>
+          <Typography>{item.title}</Typography>
+          <div
+            data-testid="toggle"
+            onClick={() => setShowDescription((x) => !x)}
+          >
+            {showDescription ? (
+              <Typography className="Description" data-testid="description">
+                {item.description}
+              </Typography>
+            ) : (
+              <Tooltip title="Click to show description">
+                <img src={item.url} alt={item.description} />
+              </Tooltip>
+            )}
+          </div>
+          <Typography color="text.secondary">{item.likes} likes</Typography>
+        </CardContent>
+        <CardActions>
+          <Tooltip title="Like">
+            <IconButton
+              onClick={async () => {
+                console.log('like button clicked')
+                try {
+                  await axios.put(`/gallery/like/${item.id}`)
+                  getGalleryItems()
+                  console.log('like successful')
+                } catch (error) {
+                  console.error('error liking', error)
+                }
+              }}
+              data-testid="like"
+            >
+              <FavoriteIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton
+              onClick={async () => {
+                console.log('delete button clicked')
+                try {
+                  await axios.delete(`/gallery/${item.id}`)
+                  getGalleryItems()
+                  console.log('delete successful')
+                } catch (error) {
+                  console.error('error deleting', error)
+                }
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </CardActions>
       </div>
-      <button
-        onClick={async () => {
-          console.log('like button clicked')
-          try {
-            await axios.put(`/gallery/like/${item.id}`)
-            getGalleryItems()
-            console.log('like successful')
-          } catch (error) {
-            console.error('error liking', error)
-          }
-        }}
-        data-testid="like"
-      >
-        Love it!
-      </button>
-      <span>{item.likes} likes</span>
-      <button
-        onClick={async () => {
-          console.log('delete button clicked')
-          try {
-            await axios.delete(`/gallery/${item.id}`)
-            getGalleryItems()
-            console.log('delete successful')
-          } catch (error) {
-            console.error('error deleting', error)
-          }
-        }}
-      >
-        Delete
-      </button>
-    </div>
+    </Card>
   )
 }
 
